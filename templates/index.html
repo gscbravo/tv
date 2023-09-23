@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/static/style.css">
+	<title>Videos</title>
+</head>
+<body>
+	<div class="wrapper">
+		<h1>Videos</h1>
+		<div class="news">
+			{% for line in announce %}
+			<p>{{ line }}</p>
+			{% endfor %}
+		</div>
+		{% if session['user'] %}
+		<h2><a href="/admin">Admin</a></h2>
+		{% endif %}
+		{% for d in data %}
+		{% if d['visible'] == "1" %}
+		<h2>{{ d['field'] }}</h2>
+		<iframe src="{{ d['url'] }}" frameborder="0" width="100%" height="480" allowfullscreen></iframe>
+		{% endif%}
+		{% endfor %}
+	</div>
+</body>
+</html>

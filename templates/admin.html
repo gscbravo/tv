@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/static/style.css">
+	<title>Admin</title>
+</head>
+<body>
+	<div class="wrapper">
+		<h1>Hello, {{ session['user'] }}</h1>
+		<p><a href="/logout">Logout</a></p>
+		<h2>Change URLs</h2>
+		{% for d in data %}
+		<h3>Video {{ d['id'] }}</h3>
+		<form action="/change" method="post">
+			<label for="field">Field</label>
+			<input type="text" name="field" id="field" placeholder="Field" value="{{ d['field'] }}" required><br>
+			<label for="url">URL</label>
+			<input type="url" name="url" id="url" placeholder="https://example.com" value="{{ d['url'] }}" required><br>
+			<input type="hidden" name="id" value="{{ d['id'] }}">
+			<label for="visible">Visible</label>
+			{% if d['visible'] == "1" %}
+			<input type="checkbox" name="visible" id="visible" value="1" checked><br>
+			{% else %}
+			<input type="checkbox" name="visible" id="visible" value="1"><br>
+			{% endif %}
+			<input type="submit" name="submit" value="Change">
+			<input type="submit" name="submit" value="Delete">
+		</form>
+		{% endfor %}
+		<h2>Add Video</h2>
+		<form action="/add" method="post">
+			<label for="field">Field</label>
+			<input type="text" name="field" id="field" placeholder="Field" required><br>
+			<label for="url">URL</label>
+			<input type="url" name="url" id="url" placeholder="https://example.com" required><br>
+			<label for="visible">Visible</label>
+			<input type="checkbox" name="visible" id="visible" placeholder="https://example.com" value="1" checked><br>
+			<input type="submit" value="Add">
+		</form>
+		<h2>News</h2>
+		<form action="/news" method="post">
+			<textarea name="news" id="" cols="35" rows="10" placeholder="Announcement">{{ announce }}</textarea><br>
+			<input type="submit" value="Announce">
+		</form>
+	</div>
+</body>
+</html>
